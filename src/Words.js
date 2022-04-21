@@ -11,14 +11,17 @@ export const boardDefault = [
 
 export const generateWordSet = async () => {
   let wordSet;
+  let todaysWord;
   await fetch(wordBank)
     .then((response) => response.text())
     .then((result) => {
-      const wordArr = result.split("\n");
+      const wordArr = result.split("\n"); //words in the next line
       wordSet = new Set(wordArr);
+      todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)]; //grabbing random word
+      console.log(wordSet);
     });
 
-  return { wordSet };
+  return { wordSet, todaysWord };
 };
 
 // our matrix
