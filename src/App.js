@@ -34,7 +34,6 @@ function App() {
     for (let i = 0; i < 5; i++) {
       currWord += board[currAttempt.attempt][i];
     }
-
     if (wordSet.has(currWord.toLowerCase())) {
       setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
     } else {
@@ -48,16 +47,20 @@ function App() {
 
     if (currAttempt.attempt === 5) {
       setGameOver({ gameOver: true, guessedWord: false });
+      return;
     }
   };
 
   // selecting letter
   const onSelectLetter = (keyVal) => {
-    if (currAttempt.letterPos > 4) return;
+    if (currAttempt.letter > 4) return;
     const newBoard = [...board]; //import board
     newBoard[currAttempt.attempt][currAttempt.letterPos] = keyVal; //attempt=0, position=0,
     setBoard(newBoard);
-    setCurrAttempt({ ...currAttempt, letterPos: currAttempt.letterPos + 1 });
+    setCurrAttempt({
+      attempt: currAttempt.attempt,
+      letterPos: currAttempt.letterPos + 1,
+    });
     console.log(newBoard);
   };
 

@@ -3,35 +3,40 @@ import Key from "./Key";
 import { AppContext } from "../App";
 
 const Keyboard = () => {
-  const { onEnter, onDelete, onSelectLetter } = useContext(AppContext);
+  const { onEnter, onDelete, onSelectLetter, currAttempt, gameOver } =
+    useContext(AppContext);
 
   const letters1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   const letters2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   const letters3 = ["Z", "X", "C", "V", "B", "N", "M"];
 
-  const handleKeyboard = useCallback((event) => {
-    if (event.key === "Enter") {
-      onEnter();
-    } else if (event.key === "Backspace") {
-      onDelete();
-    } else {
-      letters1.forEach((key) => {
-        if (event.key.toLowerCase() === key.toLowerCase()) {
-          onSelectLetter(key);
-        }
-      });
-      letters2.forEach((key) => {
-        if (event.key.toLowerCase() === key.toLowerCase()) {
-          onSelectLetter(key);
-        }
-      });
-      letters3.forEach((key) => {
-        if (event.key.toLowerCase() === key.toLowerCase()) {
-          onSelectLetter(key);
-        }
-      });
-    }
-  }); // prevents reupdating components
+  const handleKeyboard = useCallback(
+    (event) => {
+      if (gameOver.gameOver) return;
+      if (event.key === "Enter") {
+        onEnter();
+      } else if (event.key === "Backspace") {
+        onDelete();
+      } else {
+        letters1.forEach((key) => {
+          if (event.key.toLowerCase() === key.toLowerCase()) {
+            onSelectLetter(key);
+          }
+        });
+        letters2.forEach((key) => {
+          if (event.key.toLowerCase() === key.toLowerCase()) {
+            onSelectLetter(key);
+          }
+        });
+        letters3.forEach((key) => {
+          if (event.key.toLowerCase() === key.toLowerCase()) {
+            onSelectLetter(key);
+          }
+        });
+      }
+    },
+    [currAttempt]
+  );
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyboard);

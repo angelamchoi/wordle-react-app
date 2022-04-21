@@ -15,14 +15,17 @@ const Letter = ({ letterPos, attemptVal }) => {
     currAttempt.attempt > attemptVal &&
     (correct ? "correct" : almost ? "almost" : "error");
 
-  // useEffect(() => {
-  //   if (letter !== "" && !correct && !almost) {
-  //     setDisabledLetters((prev) => [...prev, letter]);
-  //   }
-  // }, [currAttempt.attempt]);
+  useEffect(() => {
+    if (letter !== "" && !correct && !almost) {
+      console.log(letter);
+    }
+  }, [currAttempt.attempt]);
 
   return (
-    <div className="letter" id={letterState}>
+    <div
+      className="letter"
+      id={correct ? "correct" : almost ? "almost" : "error"}
+    >
       {letter}
     </div>
   );
