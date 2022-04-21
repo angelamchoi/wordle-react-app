@@ -29,8 +29,11 @@ const Keyboard = () => {
       <div className="line3">
         <Key keyVal={"ENTER"} bigKey />
         {keys3.map((key) => {
-          return;
-          <Key keyVal={key} />;
+          return (
+            <div>
+              <Key keyVal={key} />
+            </div>
+          );
         })}
         <Key keyVal={"DELETE"} bigKey />
       </div>
